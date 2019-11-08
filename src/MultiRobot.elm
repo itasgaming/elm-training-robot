@@ -1,4 +1,4 @@
-module Main exposing (Model, init, main, subscriptions, update, view)
+module MultiRobot exposing (Model, Msg, init, subscriptions, update, view)
 
 import Browser
 import Html
@@ -8,7 +8,7 @@ import Robot
 main : Program () Model Msg
 main =
     Browser.element
-        { init = init
+        { init = always init
         , update = update
         , view = view
         , subscriptions = subscriptions
@@ -36,20 +36,24 @@ subscriptions model =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        movePixels =
+            50
+    in
     case msg of
         Robot1Msg robotMsg ->
-            ( { model | robot1 = Robot.update robotMsg model.robot1 }
+            ( { model | robot1 = Robot.update movePixels robotMsg model.robot1 }
             , Cmd.none
             )
 
         Robot2Msg robotMsg ->
-            ( { model | robot2 = Robot.update robotMsg model.robot2 }
+            ( { model | robot2 = Robot.update movePixels robotMsg model.robot2 }
             , Cmd.none
             )
 
 
-init : flags -> ( Model, Cmd Msg )
-init _ =
+init : ( Model, Cmd Msg )
+init =
     ( { robot1 = Robot.init 100 100 "w" "s" "d" "a"
       , robot2 = Robot.init 300 300 "ArrowUp" "ArrowDown" "ArrowRight" "ArrowLeft"
       }
