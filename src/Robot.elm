@@ -34,25 +34,21 @@ init x y up down right left =
     { x = x, y = y, up = up, down = down, right = right, left = left }
 
 
-update : Msg -> Model -> Model
-update msg model =
-    let
-        _ =
-            Debug.log "msg" msg
-    in
+update : Float -> Msg -> Model -> Model
+update movePixels msg model =
     case msg of
         KeyPressed button ->
             if button == model.up then
-                { model | y = model.y - 5 }
+                { model | y = model.y - movePixels }
 
             else if button == model.down then
-                { model | y = model.y + 5 }
+                { model | y = model.y + movePixels }
 
             else if button == model.right then
-                { model | x = model.x + 5 }
+                { model | x = model.x + movePixels }
 
             else if button == model.left then
-                { model | x = model.x - 5 }
+                { model | x = model.x - movePixels }
 
             else
                 model
