@@ -58,9 +58,9 @@ view : String -> String -> Model -> Html.Html Msg
 view name color model =
     Html.div
         [ Attributes.style "background-color" color
-        , Attributes.style "width" "50px"
+        , Attributes.style "width" "5%"
         , Attributes.style "position" "absolute"
-        , Attributes.style "left" (String.fromFloat model.x ++ "px")
-        , Attributes.style "top" (String.fromFloat model.y ++ "px")
+        , Attributes.style "left" <| String.fromFloat model.x ++ "px"
+        , Attributes.style "top" <| String.fromFloat model.y ++ "px"
         ]
         [ Html.text name ]
